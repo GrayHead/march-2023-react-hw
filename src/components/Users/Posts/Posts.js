@@ -15,4 +15,11 @@ const UserPosts = ({userId}) => {
     );
 };
 
-export {UserPosts};
+export const asd=() =>{
+    console.log('dddddd');
+}
+
+export const qwe=() =>{
+    console.log('qwe');
+}
+export default UserPosts
