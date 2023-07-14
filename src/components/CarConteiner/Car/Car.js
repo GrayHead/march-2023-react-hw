@@ -1,5 +1,11 @@
-const Car = ({car}) => {
+const Car = ({car,setOnSave,setCarForUpdate}) => {
     const {id, brand, price, year} = car;
+
+    const deleteCar = () => {
+        fetch(`http://owu.linkpc.net/carsAPI/v1/cars/${id}`, {method:'DELETE'}).then(()=>{
+            setOnSave(prev=>!prev)
+        })
+    };
 
     return (
         <div>
@@ -7,8 +13,8 @@ const Car = ({car}) => {
             <div>brand: {brand}</div>
             <div>price: {price}</div>
             <div>year: {year}</div>
-            <button>update</button>
-            <button>delete</button>
+            <button onClick={()=>setCarForUpdate(car)}>update</button>
+            <button onClick={deleteCar}>delete</button>
         </div>
     );
 };

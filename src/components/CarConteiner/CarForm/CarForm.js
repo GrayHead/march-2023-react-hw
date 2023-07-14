@@ -39,13 +39,21 @@
 import {useForm} from "react-hook-form";
 import {joiResolver} from "@hookform/resolvers/joi";
 import {carValidator} from "../../../validators/carValidator";
+import {useEffect} from "react";
 
-const CarForm = ({setOnSave}) => {
+const CarForm = ({setOnSave, carForUpdate,setCarForUpdate}) => {
     const {register, handleSubmit, reset, formState: {errors, isValid}, setValue} = useForm({
         mode: 'all',
         resolver: joiResolver(carValidator)
 
     });
+    useEffect(() => {
+        if (carForUpdate) {
+            setValue('brand', carForUpdate.brand, {shouldValidate: true})
+            setValue('price', carForUpdate.price, {shouldValidate: true})
+            setValue('year', carForUpdate.year, {shouldValidate: true})
+        }
+    }, [carForUpdate])
     const save = (data) => {
         console.log(data);
         fetch('http://owu.linkpc.net/carsAPI/v1/cars', {
@@ -67,16 +75,21 @@ const CarForm = ({setOnSave}) => {
             })
     }
 
-    const setFormValues = () => {
-        setValue('brand', 'xxxx', {shouldValidate: true})
-        setValue('price', 'sdfsf', {shouldValidate: true})
-        setValue('year', 2000, {shouldValidate: true})
-    };
-
+    const update = (car) => {
+      fetch(`http://owu.linkpc.net/carsAPI/v1/cars/${carForUpdate.id}`, {
+          headers:{'content-type':'application/json'},
+          method:'PUT',
+          body:JSON.stringify(car)
+      }).then(value => value.json()).then(()=>{
+          setOnSave(prev=>!prev)
+          setCarForUpdate(null)
+          reset()
+      })
+    }
     return (
         <div>
             {/*<h1>{JSON.stringify(errors)}</h1>*/}
-            <form onSubmit={handleSubmit(save)}>
+            <form onSubmit={handleSubmit(!carForUpdate?save:update)}>
                 <label><input type="text" placeholder={'brand'} {...register('brand', {
                     required: true
                 })}/></label>
@@ -95,9 +108,8 @@ const CarForm = ({setOnSave}) => {
                     // max: {value:new Date().getFullYear(), message:`year lte ${new Date().getFullYear()}`}
                 })}/></label>
                 {errors.year && <span>{errors.year.message}</span>}
-                <button disabled={!isValid}>Save</button>
+                <button disabled={!isValid}>{!carForUpdate?'Save':'Update'}</button>
             </form>
-            <button onClick={() => setFormValues()}>setForm</button>
         </div>
     );
 };
