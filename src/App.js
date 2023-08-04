@@ -1,7 +1,7 @@
 const App = () => {
     return (
         <div>
-            App
+            <h1 style={{fontFamily:'PattayaRegular', fontSize:"64px"}}>Привіт світ!!!!</h1>
         </div>
     );
 };
