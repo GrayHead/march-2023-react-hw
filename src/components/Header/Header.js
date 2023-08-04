@@ -1,10 +1,9 @@
 import css from './Header.module.css';
 import {NavLink} from "react-router-dom";
-import {useContext} from "react";
-import {Context} from "../../hoc/AuthContextProvider";
+import {useAppContext} from "../../hooks/useAppContext";
 
 const Header = () => {
-    const {authContext: {isAuth, isAdmin}} = useContext(Context)
+    const {authContext: {isAuth, isAdmin}} = useAppContext()
     return (
         <div className={css.Header}>
             <NavLink to={'info'}>Info</NavLink>

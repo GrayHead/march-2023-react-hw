@@ -1,9 +1,9 @@
-import {useContext, useRef} from "react";
-import {Context} from "../hoc/AuthContextProvider";
+import {useRef} from "react";
 import {useLocation, useNavigate} from "react-router-dom";
+import {useAppContext} from "../hooks/useAppContext";
 
 const LoginPage = () => {
-    const {setAuthContext} = useContext(Context)
+    const {setAuthContext} = useAppContext()
     const inp = useRef();
     const navigate = useNavigate();
     const {state} = useLocation();
