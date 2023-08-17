@@ -1,0 +1,9 @@
+.label {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: black;
+    color: snow;
+    font-size: 25px;
+    height: 50px;
+}
