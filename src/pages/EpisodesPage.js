@@ -3,8 +3,10 @@ import {useSelector} from "react-redux";
 import {useSearchParams} from "react-router-dom";
 
 import {Episodes} from "../components";
+import {useTitle} from "../hooks/useTitle";
 
 const EpisodesPage = () => {
+    useTitle('EpisodePage')
     const [query, seQuery] = useSearchParams();
     const {pages} = useSelector(state => state.episodes);
 
