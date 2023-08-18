@@ -14,7 +14,8 @@ const getAll = createAsyncThunk(
     async ({page}, thunkAPI) => {
         try {
             thunkAPI.dispatch(progressActions.setIsLoading(true))
-
+            // thunkAPI.rejectWithValue()
+            // thunkAPI.getState()
             await new Promise(resolve => setTimeout(resolve, 2000))
             const {data} = await episodesService.getAll(page);
             return data
