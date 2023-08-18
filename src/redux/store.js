@@ -1,12 +1,13 @@
 import {configureStore} from "@reduxjs/toolkit";
 
-import {charactersReducer, episodesReducer, progressReducer} from "./slices";
+import {charactersReducer, episodesReducer, progressReducer, themeReducer} from "./slices";
 
 const store = configureStore({
     reducer: {
         episodes: episodesReducer,
         characters: charactersReducer,
-        progress: progressReducer
+        progress: progressReducer,
+        theme: themeReducer
     }
 });
 
